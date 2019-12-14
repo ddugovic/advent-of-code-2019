@@ -8,6 +8,6 @@ case class Problem04() {
   def run(input: String): String = {
     val bounds = input.split("-").map(_.toInt)
     val words = (bounds(0) to bounds(1)).map(_.toString).filterNot(decreasing)
-    Array(words.count(repeating), words.count(repeating2)).mkString(" ")
+    List(words.count(repeating), words.count(repeating2)).mkString(" ")
   }
 }
