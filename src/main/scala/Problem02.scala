@@ -1,5 +1,5 @@
 case class Problem02() {
-  case class Computer(memory: Array[Int]) {
+  class Computer(memory: Array[Int]) {
     def read(address: Int) = memory(memory(address))
     def write(address: Int, value: Int) = {memory(memory(address)) = value}
     def step(address: Int) = memory(address) match {
@@ -30,7 +30,7 @@ case class Problem02() {
   }
   def run(inputs: String): String = {
     val disk = inputs.split(",").map(_.toInt)
-    val results = Array.tabulate(100, 100) { Computer(disk.clone).load(_, _).execute()(0) }
+    val results = Array.tabulate(100, 100) { new Computer(disk.clone).load(_, _).execute()(0) }
     List(results(12)(2), results.flatten.indexOf(19690720)).mkString(" ")
   }
 }
