@@ -1,5 +1,5 @@
 case class Problem03() {
-  case class Point(x: Int, y: Int) {
+  case class Point(val x: Int, val y: Int) {
     def step(direction: Char) = direction match {
       case 'L' => Point(x-1, y)
       case 'R' => Point(x+1, y)

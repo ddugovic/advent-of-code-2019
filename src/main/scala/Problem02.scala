@@ -1,5 +1,5 @@
 case class Problem02() {
-  class Computer(memory: Array[Int]) {
+  class Computer(val memory: Array[Int]) {
     def read(address: Int) = memory(memory(address))
     def write(address: Int, value: Int) = {memory(memory(address)) = value}
     def step(address: Int) = memory(address) match {

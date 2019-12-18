@@ -1,5 +1,5 @@
 case class Problem05() {
-  class Computer(memory: Array[Int], var output: Int) {
+  class Computer(val memory: Array[Int], var output: Int = 0) {
     def read(mode: Int, address: Int) = if (mode % 10 == 1) memory(address) else memory(memory(address))
     def write(address: Int, value: Int) = {memory(memory(address)) = value}
     def step(address: Int, input: Int) = {
@@ -45,11 +45,11 @@ case class Problem05() {
         address = address2
         address2 = step(address, input)
       }
-      output
+      this
     }
   }
   def run(inputs: String): String = {
     val disk = inputs.split(",").map(_.toInt)
-    List(new Computer(disk.clone, 0).execute(1), new Computer(disk, 0).execute(5)).mkString(" ")
+    List(new Computer(disk.clone, 0).execute(1).output, new Computer(disk, 0).execute(5).output).mkString(" ")
   }
 }
