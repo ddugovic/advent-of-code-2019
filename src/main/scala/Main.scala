@@ -9,4 +9,5 @@ object Main extends App {
   println("Problem05: " + new Problem05().run(Source.fromResource("05.txt").mkString.trim))
   println("Problem06: " + new Problem06().run(Source.fromResource("06.txt").getLines.toList))
   println("Problem07: " + new Problem07().run(Source.fromResource("07.txt").mkString.trim))
+  println("Problem08: " + new Problem08().run(Source.fromResource("08.txt").mkString.trim))
 }
