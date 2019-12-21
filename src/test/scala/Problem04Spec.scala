@@ -5,29 +5,28 @@ class Problem04Spec extends FlatSpec {
   val problem04 = new Problem04
 
   "112233" should "meet criteria" in {
-    assert(problem04.decreasing("112233") == false)
-    assert(problem04.repeating("112233") == true)
-    assert(problem04.repeating2("112233") == true)
+    assert(problem04.Word("112233").decreasing == false)
+    assert(problem04.Word("112233").repeating == true)
+    assert(problem04.Word("112233").repeating2 == true)
   }
 
   "223450" should "fail criteria" in {
-    assert(problem04.decreasing("223450") == true)
-    assert(problem04.repeating("223450") == true)
+    assert(problem04.Word("223450").decreasing == true)
+    assert(problem04.Word("223450").repeating == true)
   }
 
   "123789" should "fail criteria" in {
-    assert(problem04.decreasing("1234789") == false)
-    assert(problem04.repeating("123789") == false)
+    assert(problem04.Word("123789").decreasing == false)
+    assert(problem04.Word("123789").repeating == false)
   }
 
   "123444" should "fail criteria" in {
-    assert(problem04.decreasing("123444") == false)
-    assert(problem04.repeating2("123444") == false)
+    assert(problem04.Word("123444").decreasing == false)
+    assert(problem04.Word("123444").repeating == true)
   }
 
   "111122" should "meet criteria" in {
-    val repetition2 = "(\\d)\\1+".r
-    assert(problem04.decreasing("111122") == false)
-    assert(problem04.repeating2("111122") == true)
+    assert(problem04.Word("111122").decreasing == false)
+    assert(problem04.Word("111122").repeating == true)
   }
 }
