@@ -31,6 +31,6 @@ case class Problem02() {
   def run(inputs: String): String = {
     val disk = inputs.split(",").map(_.toInt)
     val results = Array.tabulate(100, 100) { new Computer(disk.clone).load(_, _).execute()(0) }
-    List(results(12)(2), results.flatten.indexOf(19690720)).mkString(" ")
+    Seq(results(12)(2), results.flatten.indexOf(19690720)).mkString(" ")
   }
 }

@@ -1,6 +1,6 @@
 case class Problem08() {
   case class Image(input: String, rows: Int, cols: Int) {
-    val layers = input.grouped(rows * cols).toList
+    val layers = input.grouped(rows * cols).toSeq
     val count = layers.map(_.groupBy(identity).mapValues(_.size))
     val minLayer = count.minBy(_.getOrElse('0', 0))
     val product = minLayer('1') * minLayer('2')
@@ -8,6 +8,6 @@ case class Problem08() {
   }
   def run(input: String): String = {
     val results = Image(input, 6, 25)
-    List(results.product, results.project.replace("0", " ").replace("1", "#")).mkString("\n")
+    Seq(results.product, results.project.replace("0", " ").replace("1", "#")).mkString("\n")
   }
 }

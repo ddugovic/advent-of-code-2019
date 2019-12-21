@@ -18,9 +18,9 @@ case class Problem03() {
     val directions = input.split(",").map(decode).mkString("")
     directions.scanLeft(Point(0, 0))((p: Point, s: Char) => p.step(s))
   }
-  def run(inputs: List[String]): String = {
+  def run(inputs: Seq[String]): String = {
     val wires = inputs.map(wire(_))
     val intersections = wires.reduce(_ intersect _) drop 1
-    List(intersections.map(_.distance).min, intersections.map(p => wires.map(p.delay(_)).sum).min).mkString(" ")
+    Seq(intersections.map(_.distance).min, intersections.map(p => wires.map(p.delay(_)).sum).min).mkString(" ")
   }
 }

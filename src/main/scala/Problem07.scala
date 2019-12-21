@@ -71,6 +71,6 @@ case class Problem07() {
     val disk = inputs.split(",").map(_.toInt)
     val phases = (0 to 4).permutations
     val phases2 = (5 to 9).permutations
-    List(phases.map(new Network(disk, _).execute(0)).max, phases2.map(new Network(disk, _).execute2(0, 100)).max).mkString(" ")
+    Seq(phases.map(new Network(disk, _).execute(0)).max, phases2.map(new Network(disk, _).execute2(0, 100)).max).mkString(" ")
   }
 }

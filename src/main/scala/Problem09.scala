@@ -63,7 +63,7 @@ case class Problem09() {
   }
   def run(inputs: String): String = {
     val program = inputs.split(",").map(_.toLong)
-    List(new Computer(program.toBuffer.padTo(2048, 0L)).execute(1).output,
+    Seq(new Computer(program.toBuffer.padTo(2048, 0L)).execute(1).output,
          new Computer(program.toBuffer.padTo(2048, 0L)).execute(2).output).mkString(" ")
   }
 }

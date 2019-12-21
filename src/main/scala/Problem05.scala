@@ -50,6 +50,6 @@ case class Problem05() {
   }
   def run(inputs: String): String = {
     val disk = inputs.split(",").map(_.toInt)
-    List(new Computer(disk.clone, 0).execute(1).output, new Computer(disk, 0).execute(5).output).mkString(" ")
+    Seq(new Computer(disk.clone, 0).execute(1).output, new Computer(disk, 0).execute(5).output).mkString(" ")
   }
 }
