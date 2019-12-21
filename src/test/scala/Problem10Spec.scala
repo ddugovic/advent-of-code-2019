@@ -1,9 +1,12 @@
 import org.scalatest.FlatSpec
 
+import scala.io.Source
+
 class Problem10Spec extends FlatSpec {
 
+  val problem10 = new Problem10
+
   "first sample map" should "detect 8 asteroids" in {
-    val problem10 = new Problem10
     val graph = problem10.Graph(""".#..#
 .....
 #####
@@ -13,7 +16,6 @@ class Problem10Spec extends FlatSpec {
   }
 
   "second sample map" should "detect 33 asteroids" in {
-    val problem10 = new Problem10
     val graph = problem10.Graph("""......#.#.
 #..#.#....
 ..#######.
@@ -28,7 +30,6 @@ class Problem10Spec extends FlatSpec {
   }
 
   "third sample map" should "detect 35 asteroids" in {
-    val problem10 = new Problem10
     val graph = problem10.Graph("""#.#...#.#.
 .###....#.
 .#....#...
@@ -43,7 +44,6 @@ class Problem10Spec extends FlatSpec {
   }
 
   "fourth sample map" should "detect 41 asteroids" in {
-    val problem10 = new Problem10
     val graph = problem10.Graph(""".#..#..###
 ####.###.#
 ....###.#.
@@ -58,27 +58,7 @@ class Problem10Spec extends FlatSpec {
   }
 
   "fifth sample map" should "vaporize 210 asteroids" in {
-    val problem10 = new Problem10
-    val graph = problem10.Graph(""".#..##.###...#######
-##.############..##.
-.#.######.########.#
-.###.#######.####.#.
-#####.##.#.##.###.##
-..#####..#.#########
-####################
-#.####....###.#.#.##
-##.#################
-#####.##.###..####..
-..######..##.#######
-####.##.####...##..#
-.#####..#.######.###
-##...#.##########...
-#.##########.#######
-.####.#.###.###.#.##
-....##.##.###..#####
-.#.#.###########.###
-#.#.#.#####.####.###
-###.##.####.##.#..##""")
+    val graph = problem10.Graph(Source.fromResource("10.txt").mkString.trim)
     assert(graph.ranks.max == 210)
     assert(graph.targets(0).id == 1112)
     assert(graph.targets(1).id == 1201)
@@ -93,7 +73,6 @@ class Problem10Spec extends FlatSpec {
   }
 
   "sixth sample map" should "vaporize asteroids" in {
-    val problem10 = new Problem10
     val graph = problem10.Graph(""".#....#####...#..
 ##...##.#####..##
 ##...#...#.#####.
