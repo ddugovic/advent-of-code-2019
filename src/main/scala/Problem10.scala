@@ -16,7 +16,7 @@ case class Problem10() {
   }
   case class Point(val x: Int, val y: Int) {
     val id = 100 * x + y
-    def between(p1: Point, p2: Point) = (p1.x - x).sign == (x - p2.x).sign && (p1.y - y).sign == (y - p2.y).sign && (p1.x - x) * (p2.y - y) == (p2.x - x) * (p1.y - y)
+    def between(p1: Point, p2: Point) = (p1.x - x).signum == (x - p2.x).signum && (p1.y - y).signum == (y - p2.y).signum && (p1.x - x) * (p2.y - y) == (p2.x - x) * (p1.y - y)
     def theta(p: Point) = atan2(x - p.x - 0.01, p.y - y)
   }
   def run(input: String): String = {
