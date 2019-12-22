@@ -12,4 +12,5 @@ object Main extends App {
   println("Problem08: " + new Problem08().run(Source.fromResource("08.txt").mkString.trim))
   println("Problem09: " + new Problem09().run(Source.fromResource("09.txt").mkString.trim))
   println("Problem10: " + new Problem10().run(Source.fromResource("10.txt").mkString.trim))
+  println("Problem11: " + new Problem11().run(Source.fromResource("11.txt").mkString.trim))
 }
