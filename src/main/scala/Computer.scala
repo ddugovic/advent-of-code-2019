@@ -1,10 +1,6 @@
 import scala.collection.mutable.Buffer
 
-trait IOChannel {
-  def input(): Long
-  def output(signal: Long)
-}
-class Computer(val channel: IOChannel, val memory: Buffer[Long]) {
+class Computer(val channel: IOChannel[Long], val memory: Buffer[Long]) {
   var base = 0
   var pc = 0
   def op = memory(pc) % 100
@@ -37,11 +33,11 @@ class Computer(val channel: IOChannel, val memory: Buffer[Long]) {
         pc = if (read(mode, pc+1) == 0) read(mode/10, pc+2).toInt else pc + 3
       }
       case 7 => {
-        write(mode/100, pc+3, if (read(mode, pc+1) < read(mode/10, pc+2)) 1 else 0)
+        write(mode/100, pc+3, if (read(mode, pc+1) < read(mode/10, pc+2)) 1L else 0L)
         pc += 4
       }
       case 8 => {
-        write(mode/100, pc+3, if (read(mode, pc+1) == read(mode/10, pc+2)) 1 else 0)
+        write(mode/100, pc+3, if (read(mode, pc+1) == read(mode/10, pc+2)) 1L else 0L)
         pc += 4
       }
       case 9 => {

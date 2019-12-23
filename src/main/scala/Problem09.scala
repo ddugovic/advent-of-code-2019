@@ -1,7 +1,7 @@
 import scala.collection.mutable.Buffer
 
 case class Problem09() {
-  class Machine(val program: Buffer[Long], id: Long, var signal: Long = 0) extends IOChannel {
+  class Machine(val program: Buffer[Long], id: Long, var signal: Long = 0) extends IOChannel[Long] {
     val computer = new Computer(this, program)
     def input(): Long = id
     def output(signal: Long) = {
