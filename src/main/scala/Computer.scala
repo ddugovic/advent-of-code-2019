@@ -9,7 +9,7 @@ class Computer(val channel: IOChannel, val memory: Buffer[Long]) {
   var pc = 0
   def op = memory(pc) % 100
   def relativeAddress(mode: Int, address: Long) = if (mode % 10 == 2) base + address else address
-  def read(mode: Int, address: Long) = if (mode % 10 == 1) memory(address.toInt) else memory(relativeAddress(mode, memory(address.toInt)).toInt)
+  def read(mode: Int, address: Int) = if (mode % 10 == 1) memory(address) else memory(relativeAddress(mode, memory(address)).toInt)
   def write(mode: Int, address: Int, value: Long) = {memory(relativeAddress(mode, memory(address)).toInt) = value}
   def step() = {
     val mode = memory(pc).toInt / 100
