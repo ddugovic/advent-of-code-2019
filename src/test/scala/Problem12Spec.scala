@@ -4,7 +4,7 @@ class Problem12Spec extends FlatSpec {
 
   val problem12 = new Problem12
 
-  "moons" should "have energy" in {
+  "first example moons" should "cycle in 2772 steps" in {
     val moon1 = new problem12.Moon("<x=-1, y=0, z=2>")
     val moon2 = new problem12.Moon("<x=2, y=-10, z=-7>")
     val moon3 = new problem12.Moon("<x=4, y=-8, z=8>")
@@ -122,87 +122,147 @@ class Problem12Spec extends FlatSpec {
     assert(moon4.position == new problem12.Position(2, 0, 4))
     assert(moon4.velocity == new problem12.Velocity(1, -1, -1))
     assert(moon4.energy == 18)
+
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 2762)
+    assert(moon1.position == new problem12.Position(-1, 0, 2))
+    assert(moon1.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon2.position == new problem12.Position(2, -10, -7))
+    assert(moon2.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon3.position == new problem12.Position(4, -8, 8))
+    assert(moon3.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon4.position == new problem12.Position(3, 5, -1))
+    assert(moon4.velocity == new problem12.Velocity(0, 0, 0))
   }
-"""
-Here's a second example:
 
-<x=-8, y=-10, z=0>
-<x=5, y=5, z=10>
-<x=2, y=-7, z=3>
-<x=9, y=-8, z=-3>
-Every ten steps of simulation for 100 steps produces:
+  "second example moons" should "have energy" in {
+    val moon1 = new problem12.Moon("<x=-8, y=-10, z=0>")
+    val moon2 = new problem12.Moon("<x=5, y=5, z=10>")
+    val moon3 = new problem12.Moon("<x=2, y=-7, z=3>")
+    val moon4 = new problem12.Moon("<x=9, y=-8, z=-3>")
 
-After 0 steps:
-pos=<x= -8, y=-10, z=  0>, vel=<x=  0, y=  0, z=  0>
-pos=<x=  5, y=  5, z= 10>, vel=<x=  0, y=  0, z=  0>
-pos=<x=  2, y= -7, z=  3>, vel=<x=  0, y=  0, z=  0>
-pos=<x=  9, y= -8, z= -3>, vel=<x=  0, y=  0, z=  0>
+    assert(moon1.position == new problem12.Position(-8, -10, 0))
+    assert(moon1.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon2.position == new problem12.Position(5, 5, 10))
+    assert(moon2.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon3.position == new problem12.Position(2, -7, 3))
+    assert(moon3.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon4.position == new problem12.Position(9, -8, -3))
+    assert(moon4.velocity == new problem12.Velocity(0, 0, 0))
 
-After 10 steps:
-pos=<x= -9, y=-10, z=  1>, vel=<x= -2, y= -2, z= -1>
-pos=<x=  4, y= 10, z=  9>, vel=<x= -3, y=  7, z= -2>
-pos=<x=  8, y=-10, z= -3>, vel=<x=  5, y= -1, z= -2>
-pos=<x=  5, y=-10, z=  3>, vel=<x=  0, y= -4, z=  5>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(-9, -10, 1))
+    assert(moon1.velocity == new problem12.Velocity(-2, -2, -1))
+    assert(moon2.position == new problem12.Position(4, 10, 9))
+    assert(moon2.velocity == new problem12.Velocity(-3, 7, -2))
+    assert(moon3.position == new problem12.Position(8, -10, -3))
+    assert(moon3.velocity == new problem12.Velocity(5, -1, -2))
+    assert(moon4.position == new problem12.Position(5, -10, 3))
 
-After 20 steps:
-pos=<x=-10, y=  3, z= -4>, vel=<x= -5, y=  2, z=  0>
-pos=<x=  5, y=-25, z=  6>, vel=<x=  1, y=  1, z= -4>
-pos=<x= 13, y=  1, z=  1>, vel=<x=  5, y= -2, z=  2>
-pos=<x=  0, y=  1, z=  7>, vel=<x= -1, y= -1, z=  2>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(-10, 3, -4))
+    assert(moon1.velocity == new problem12.Velocity(-5, 2, 0))
+    assert(moon2.position == new problem12.Position(5, -25, 6))
+    assert(moon2.velocity == new problem12.Velocity(1, 1, -4))
+    assert(moon3.position == new problem12.Position(13, 1, 1))
+    assert(moon3.velocity == new problem12.Velocity(5, -2, 2))
+    assert(moon4.position == new problem12.Position(0, 1, 7))
 
-After 30 steps:
-pos=<x= 15, y= -6, z= -9>, vel=<x= -5, y=  4, z=  0>
-pos=<x= -4, y=-11, z=  3>, vel=<x= -3, y=-10, z=  0>
-pos=<x=  0, y= -1, z= 11>, vel=<x=  7, y=  4, z=  3>
-pos=<x= -3, y= -2, z=  5>, vel=<x=  1, y=  2, z= -3>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(15, -6, -9))
+    assert(moon1.velocity == new problem12.Velocity(-5, 4, 0))
+    assert(moon2.position == new problem12.Position(-4, -11, 3))
+    assert(moon2.velocity == new problem12.Velocity(-3, -10, 0))
+    assert(moon3.position == new problem12.Position(0, -1, 11))
+    assert(moon3.velocity == new problem12.Velocity(7, 4, 3))
+    assert(moon4.position == new problem12.Position(-3, -2, 5))
+    assert(moon4.velocity == new problem12.Velocity(1, 2, -3))
 
-After 40 steps:
-pos=<x= 14, y=-12, z= -4>, vel=<x= 11, y=  3, z=  0>
-pos=<x= -1, y= 18, z=  8>, vel=<x= -5, y=  2, z=  3>
-pos=<x= -5, y=-14, z=  8>, vel=<x=  1, y= -2, z=  0>
-pos=<x=  0, y=-12, z= -2>, vel=<x= -7, y= -3, z= -3>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(14, -12, -4))
+    assert(moon1.velocity == new problem12.Velocity(11, 3, 0))
+    assert(moon2.position == new problem12.Position(-1, 18, 8))
+    assert(moon2.velocity == new problem12.Velocity(-5, 2, 3))
+    assert(moon3.position == new problem12.Position(-5, -14, 8))
+    assert(moon3.velocity == new problem12.Velocity(1, -2, 0))
+    assert(moon4.position == new problem12.Position(0, -12, -2))
+    assert(moon4.velocity == new problem12.Velocity(-7, -3, -3))
 
-After 50 steps:
-pos=<x=-23, y=  4, z=  1>, vel=<x= -7, y= -1, z=  2>
-pos=<x= 20, y=-31, z= 13>, vel=<x=  5, y=  3, z=  4>
-pos=<x= -4, y=  6, z=  1>, vel=<x= -1, y=  1, z= -3>
-pos=<x= 15, y=  1, z= -5>, vel=<x=  3, y= -3, z= -3>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(-23, 4, 1))
+    assert(moon1.velocity == new problem12.Velocity(-7, -1, 2))
+    assert(moon2.position == new problem12.Position(20, -31, 13))
+    assert(moon2.velocity == new problem12.Velocity(5, 3, 4))
+    assert(moon3.position == new problem12.Position(-4, 6, 1))
+    assert(moon3.velocity == new problem12.Velocity(-1, 1, -3))
+    assert(moon4.position == new problem12.Position(15, 1, -5))
+    assert(moon4.velocity == new problem12.Velocity(3, -3, -3))
 
-After 60 steps:
-pos=<x= 36, y=-10, z=  6>, vel=<x=  5, y=  0, z=  3>
-pos=<x=-18, y= 10, z=  9>, vel=<x= -3, y= -7, z=  5>
-pos=<x=  8, y=-12, z= -3>, vel=<x= -2, y=  1, z= -7>
-pos=<x=-18, y= -8, z= -2>, vel=<x=  0, y=  6, z= -1>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(36, -10, 6))
+    assert(moon1.velocity == new problem12.Velocity(5, 0, 3))
+    assert(moon2.position == new problem12.Position(-18, 10, 9))
+    assert(moon2.velocity == new problem12.Velocity(-3, -7, 5))
+    assert(moon3.position == new problem12.Position(8, -12, -3))
+    assert(moon3.velocity == new problem12.Velocity(-2, 1, -7))
+    assert(moon4.position == new problem12.Position(-18, -8, -2))
+    assert(moon4.velocity == new problem12.Velocity(0, 6, -1))
 
-After 70 steps:
-pos=<x=-33, y= -6, z=  5>, vel=<x= -5, y= -4, z=  7>
-pos=<x= 13, y= -9, z=  2>, vel=<x= -2, y= 11, z=  3>
-pos=<x= 11, y= -8, z=  2>, vel=<x=  8, y= -6, z= -7>
-pos=<x= 17, y=  3, z=  1>, vel=<x= -1, y= -1, z= -3>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(-33, -6, 5))
+    assert(moon1.velocity == new problem12.Velocity(-5, -4, 7))
+    assert(moon2.position == new problem12.Position(13, -9, 2))
+    assert(moon2.velocity == new problem12.Velocity(-2, 11, 3))
+    assert(moon3.position == new problem12.Position(11, -8, 2))
+    assert(moon3.velocity == new problem12.Velocity(8, -6, -7))
+    assert(moon4.position == new problem12.Position(17, 3, 1))
+    assert(moon4.velocity == new problem12.Velocity(-1, -1, -3))
 
-After 80 steps:
-pos=<x= 30, y= -8, z=  3>, vel=<x=  3, y=  3, z=  0>
-pos=<x= -2, y= -4, z=  0>, vel=<x=  4, y=-13, z=  2>
-pos=<x=-18, y= -7, z= 15>, vel=<x= -8, y=  2, z= -2>
-pos=<x= -2, y= -1, z= -8>, vel=<x=  1, y=  8, z=  0>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(30, -8, 3))
+    assert(moon1.velocity == new problem12.Velocity(3, 3, 0))
+    assert(moon2.position == new problem12.Position(-2, -4, 0))
+    assert(moon2.velocity == new problem12.Velocity(4, -13, 2))
+    assert(moon3.position == new problem12.Position(-18, -7, 15))
+    assert(moon3.velocity == new problem12.Velocity(-8, 2, -2))
+    assert(moon4.position == new problem12.Position(-2, -1, -8))
+    assert(moon4.velocity == new problem12.Velocity(1, 8, 0))
 
-After 90 steps:
-pos=<x=-25, y= -1, z=  4>, vel=<x=  1, y= -3, z=  4>
-pos=<x=  2, y= -9, z=  0>, vel=<x= -3, y= 13, z= -1>
-pos=<x= 32, y= -8, z= 14>, vel=<x=  5, y= -4, z=  6>
-pos=<x= -1, y= -2, z= -8>, vel=<x= -3, y= -6, z= -9>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(-25, -1, 4))
+    assert(moon1.velocity == new problem12.Velocity(1, -3, 4))
+    assert(moon2.position == new problem12.Position(2, -9, 0))
+    assert(moon2.velocity == new problem12.Velocity(-3, 13, -1))
+    assert(moon3.position == new problem12.Position(32, -8, 14))
+    assert(moon3.velocity == new problem12.Velocity(5, -4, 6))
+    assert(moon4.position == new problem12.Position(-1, -2, -8))
+    assert(moon4.velocity == new problem12.Velocity(-3, -6, -9))
 
-After 100 steps:
-pos=<x=  8, y=-12, z= -9>, vel=<x= -7, y=  3, z=  0>
-pos=<x= 13, y= 16, z= -3>, vel=<x=  3, y=-11, z= -5>
-pos=<x=-29, y=-11, z= -1>, vel=<x= -3, y=  7, z=  4>
-pos=<x= 16, y=-13, z= 23>, vel=<x=  7, y=  1, z=  1>
+    problem12.step(Seq(moon1, moon2, moon3, moon4), 10)
+    assert(moon1.position == new problem12.Position(8, -12, -9))
+    assert(moon1.velocity == new problem12.Velocity(-7, 3, 0))
+    assert(moon1.energy == 290)
+    assert(moon2.position == new problem12.Position(13, 16, -3))
+    assert(moon2.velocity == new problem12.Velocity(3, -11, -5))
+    assert(moon2.energy == 608)
+    assert(moon3.position == new problem12.Position(-29, -11, -1))
+    assert(moon3.velocity == new problem12.Velocity(-3, 7, 4))
+    assert(moon3.energy == 574)
+    assert(moon4.position == new problem12.Position(16, -13, 23))
+    assert(moon4.velocity == new problem12.Velocity(7, 1, 1))
+    assert(moon4.energy == 468)
 
-Energy after 100 steps:
-pot:  8 + 12 +  9 = 29;   kin: 7 +  3 + 0 = 10;   total: 29 * 10 = 290
-pot: 13 + 16 +  3 = 32;   kin: 3 + 11 + 5 = 19;   total: 32 * 19 = 608
-pot: 29 + 11 +  1 = 41;   kin: 3 +  7 + 4 = 14;   total: 41 * 14 = 574
-pot: 16 + 13 + 23 = 52;   kin: 7 +  1 + 1 =  9;   total: 52 *  9 = 468
-Sum of total energy: 290 + 608 + 574 + 468 = 1940
-"""
+/*
+    1 to 8 foreach {_ =>
+      problem12.step(Seq(moon1, moon2, moon3, moon4), 585846853)
+    }
+    assert(moon1.position == new problem12.Position(-8, -10, 0))
+    assert(moon1.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon2.position == new problem12.Position(5, 5, 10))
+    assert(moon2.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon3.position == new problem12.Position(2, -7, 3))
+    assert(moon3.velocity == new problem12.Velocity(0, 0, 0))
+    assert(moon4.position == new problem12.Position(9, -8, -3))
+    assert(moon4.velocity == new problem12.Velocity(0, 0, 0))
+*/
+  } 
 }
