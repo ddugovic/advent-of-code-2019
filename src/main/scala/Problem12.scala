@@ -28,12 +28,38 @@ case class Problem12() {
     val map = newMoons.zip(newMoons.map(_.accelerate(newMoons)))
     map.map((tuple) => Moon(tuple._1.position.add(tuple._2), tuple._2))
   }
+  // https://stackoverflow.com/a/40876649
+  def lcm(seq: Seq[BigInt]): BigInt = seq.foldLeft(1: BigInt) {
+    (a, b) => b * a / Stream.iterate((a, b)) {
+      case (x, y) => (y, x % y)
+    }.dropWhile(_._2 != 0).head._1
+  }
   def run(inputs: Seq[String]): String = {
-    var moons = inputs.map(input => newMoon(input))
-    1 to 1000 foreach {_ =>
-      moons = step(moons)
+    val moons = inputs.map(input => newMoon(input))
+    var newMoons = moons
+    var energy = 0
+    var x = 1
+    var y = 1
+    var z = 1
+    // Because at t=0 all moons have velocity=0, at t=-1 all moons are in the same position.
+    // In each dimension this repetition will occur in each period; periods have even parity.
+    (2 to 1000000 by 2) foreach {i =>
+      newMoons = step(newMoons)
+      newMoons = step(newMoons)
+      if (i == 1000) {
+        energy = newMoons.map(_.energy).sum
+      }
+      val offsets = for ((newMoon, moon) <- (newMoons zip moons)) yield newMoon.position.subtract(moon.position)
+      if (x == 1 && offsets(0).x == 0 && offsets(1).x == 0 && offsets(2).x == 0 && offsets(3).x == 0) {
+        x = i
+      }
+      if (y == 1 && offsets(0).y == 0 && offsets(1).y == 0 && offsets(2).y == 0 && offsets(3).y == 0) {
+        y = i
+      }
+      if (z == 1 && offsets(0).z == 0 && offsets(1).z == 0 && offsets(2).z == 0 && offsets(3).z == 0) {
+        z = i
+      }
     }
-    val energy = moons.map(_.energy).sum
-    Seq(energy, 1000).mkString(" ")
+    Seq(energy, lcm(Seq(x, y, z))).mkString(" ")
   }
 }
