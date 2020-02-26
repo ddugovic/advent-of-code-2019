@@ -2,22 +2,25 @@ import scala.util.matching.Regex.Match
 
 case class Problem14() {
   private val parser = "(\\d+) (\\w+)".r
-  case class Chemical(val element: String, val amount: Int)
-  object Chemical {
-    def apply(input: String): Chemical = {
-      val m: Match = parser.findPrefixMatchOf(input).get
-      Chemical(m.group(2), m.group(1).toInt)
-    }
+  case class Mixture(val resources: Map[String, Int]) {
+    def add(mixture: Mixture): Mixture = Mixture(resources ++ mixture.resources.map{ case (k,v) => k -> (v + resources.getOrElse(k,0)) })
   }
-  case class ReactionMap(val reactions: Map[Set[Chemical], Chemical])
-  object ReactionMap {
-    def apply(inputs: Seq[String]): ReactionMap = ReactionMap(inputs.map(input => (input.split(" => ")(0).split(", ").map(Chemical(_)).toSet, Chemical(input.split(" => ")(1)))).toMap)
+  object Mixture {
+    def apply(input: String): Mixture = input.split(", ").map {s =>
+      val m: Match = parser.findPrefixMatchOf(s).get
+      Mixture(Map(m.group(2) -> m.group(1).toInt))
+    }.reduce(_ add _)
   }
-  def react(reagents: Set[Chemical]) {
+  case class Factory(val reactions: Map[Mixture, Seq[Mixture]]) {
+    def mix(chemicals: Mixture): Option[Set[Mixture]] = reactions.get(chemicals).map(_.toSet)
+    def produce(chemicals: Mixture): Set[Mixture] = mix(chemicals) getOrElse Set(chemicals)
+  }
+  object Factory {
+    def apply(inputs: Seq[String]): Factory = Factory(inputs.map(input => (Mixture(input.split(" => ")(0)), Mixture(input.split(" => ")(1)))).groupMap(_._1)(_._2))
   }
 
   def run(inputs: Seq[String]): String = {
-    val results: ReactionMap = ReactionMap(inputs)
+    val results: Factory = Factory(inputs)
     ""
     //Seq(results).mkString(" ")
   }
