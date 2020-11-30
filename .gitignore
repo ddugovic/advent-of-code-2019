@@ -8,5 +8,6 @@ src_managed/
 project/boot/
 project/plugins/project/
 .history
+.bloop/
 .cache
 .lib/
