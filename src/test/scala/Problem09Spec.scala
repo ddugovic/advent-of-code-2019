@@ -1,8 +1,9 @@
-import org.scalatest.FlatSpec
+
 
 import scala.collection.mutable.Buffer
+import org.scalatest.flatspec.AnyFlatSpec
 
-class Problem09Spec extends FlatSpec {
+class Problem09Spec extends AnyFlatSpec {
 
   val problem09 = new Problem09
 

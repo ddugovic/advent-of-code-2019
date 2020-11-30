@@ -1,6 +1,7 @@
-import org.scalatest.FlatSpec
 
-class Problem03Spec extends FlatSpec {
+import org.scalatest.flatspec.AnyFlatSpec
+
+class Problem03Spec extends AnyFlatSpec {
 
   val problem03 = new Problem03
 
